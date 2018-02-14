@@ -1,0 +1,72 @@
+https://unix.stackexchange.com/questions/36540/why-am-i-still-getting-a-password-prompt-with-ssh-with-public-key-authentication
+
+http://edoceo.com/notabene/ssh-exchange-identification
+
+http://blog.johannesmp.com/2017/01/25/port-forwarding-ssh-from-virtualbox/
+
+---
+
+# ubuntu server LTS
+https://www.ubuntu.com/download/server/thank-you?version=16.04.3&architecture=amd64
+
+---
+
+ssh -p 2222 -v creid@127.0.0.1
+
+Ubuntu 16.04.3 Server
+Virtual Box port forwarding
+    ssh
+        Protocol    TCP
+        Host IP     
+        Host Port   2222
+        Guest IP    
+        Guest Post  22
+
+# install openssh
+sudo apt-get install openssh-server
+
+# go to home directory    
+cd
+mkdir .ssh
+chmod 700 .ssh
+cd .ssh
+vi authorized_keys
+# paste id_rsa.pub
+chmod 700 authorized_keys
+cd
+mkdir cosc2325
+mkdir ./cosc2325/creidacc
+
+---
+
+scp -P 2048 /Users/creid/Desktop/NWR/school/spring-2018/ACC/COSC-2325/creidacc/test.s u011@squid.ddns.net:/home/cosc2325/u011/creidacc/test.s
+
+---
+
+scp -P 2222 /Users/creid/Desktop/NWR/school/spring-2018/ACC/COSC-2325/creidacc/test.s creid@127.0.0.1:/home/creid/cosc2325/creidacc/test.s
+
+---
+
+sudo apt-get install qemu-user gcc-aarch64-linux-gnu
+
+---
+
+# compile
+aarch64-linux-gnu-gcc -static -o hello hello.c
+# check if file is binary
+file hello
+# run
+./hello
+# run simulator
+qemu-aarch64 ./hello
+
+---
+
+# assemble
+aarch64-linux-gnu-as -o test.o test.s
+# link
+aarch64-linux-gnu-gcc -static -o test test.o
+# run
+./test
+# check return code
+echo $?

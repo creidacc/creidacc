@@ -1,0 +1,31 @@
+https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
+
+https://serverfault.com/questions/387121/restrict-password-based-ssh-access-per-user-but-allow-key-authentication
+
+http://sshkeychain.sourceforge.net/mirrors/SSH-with-Keys-HOWTO/SSH-with-Keys-HOWTO-4.html
+
+# from OS X
+ssh-keygen
+
+# from OpenBSD
+cd # go to home directory
+mkdir .ssh
+chmod 700 .ssh
+
+# from OS X (to squid)
+scp -P 2048 /Users/creid/.ssh/id_rsa.pub u011@squid.ddns.net:/home/cosc2325/u011/.ssh/id_rsa.pub
+
+# from OpenBSD
+cd .ssh
+touch authorized_keys
+cat ../id_dsa.pub >> authorized_keys
+rm ../id_dsa.pub
+
+ssh u011@squid.ddns.net -p2048
+
+# create ~/.ssh/authorized_keys
+# put id_rsa.pub in authorized_keys (copy and paste)
+
+---
+
+ssh -p 8192 -v u011@squid-pi.ddns.net

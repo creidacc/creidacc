@@ -1,0 +1,24 @@
+rm lab3-1-a.s
+vi lab3-1-a.s
+
+cc -o lab3-1-a lab3-1-a.s
+./lab3-1-a
+echo $?
+
+---
+
+rm lab3-1-b.s
+vi lab3-1-b.s
+
+cc -o lab3-1-b lab3-1-b.s
+./lab3-1-b
+echo $?
+
+---
+
+rm lab3-1-c.s
+vi lab3-1-c.s
+
+cc -o lab3-1-c lab3-1-c.s
+./lab3-1-c
+echo $?

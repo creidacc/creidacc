@@ -1,0 +1,21 @@
+mkdir examples
+cp /home/karinah/public/* ~/examples
+
+alias ll="ls -la"
+
+# compile
+cc -o file file.s
+
+# run
+.file
+
+# verify 
+echo
+
+cc -o test test.s
+./test
+echo $?
+
+cc -o test1 test1.s
+./test1
+echo $?
