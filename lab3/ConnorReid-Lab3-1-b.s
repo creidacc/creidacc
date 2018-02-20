@@ -1,4 +1,13 @@
 /* 
+    Connor Reid
+    COSC 2325
+    Spring 2018
+    Section 001
+    Karina
+
+    Lab 3
+    1/b)
+
     if (i==j) f=g+h
     else f=g-h;
 */

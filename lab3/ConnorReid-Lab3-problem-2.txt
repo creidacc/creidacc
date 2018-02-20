@@ -1,0 +1,12 @@
+Lab 3/2/a)
+
+LSL X12, X10, #4 is 0x00000000aaaaaaa0
+ORR X12, X12, X11 is 0x12345678aaaaaaa8
+
+Lab 3/2/b)
+
+LSL X12, X11, #4 is 0x2345678123456780
+
+Lab 3/2/bc)
+
+LSR X12, X10, #3 is 0x000000002aaaaaaa

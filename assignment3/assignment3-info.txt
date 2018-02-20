@@ -1,0 +1,33 @@
+rm ConnorReid-Assignment3-problem-2.s
+vi ConnorReid-Assignment3-problem-2.s
+
+cc -o ConnorReid-Assignment3-problem-2 ConnorReid-Assignment3-problem-2.s
+./ConnorReid-Assignment3-problem-2
+echo $?
+
+---
+
+rm ConnorReid-Assignment3-problem-3.s
+vi ConnorReid-Assignment3-problem-3.s
+
+cc -o ConnorReid-Assignment3-problem-3 ConnorReid-Assignment3-problem-3.s
+./ConnorReid-Assignment3-problem-3
+echo $?
+
+---
+
+rm lab3-1-c.s
+vi lab3-1-c.s
+
+cc -o lab3-1-c lab3-1-c.s
+./lab3-1-c
+echo $?
+
+---
+
+rm lab3-2.s
+vi lab3-2.s
+
+cc -o lab3-2 lab3-2.s
+./lab3-2
+echo $?
