@@ -1,0 +1,30 @@
+ssh -p 2223 -v pi@127.0.0.1
+
+nano .profile
+# add line
+alias ll="ls -la"
+
+scp -v -P 2223 /Users/creid/Desktop/NWR/school/spring-2018/ACC/COSC-2325/creidacc/final-project/paex_record.c pi@127.0.0.1:/home/pi/cs2325/final-project/paex_record.c
+
+cp /home/pi/cs2325/portaudio/include/portaudio.h portaudio.h
+
+gcc -o paex_record paex_record.c -lrt -lasound -lpthread -lportaudio
+./paex_record
+
+# install Port Audio dependencies
+sudo apt-get install libasound-dev
+sudo apt-get install libportaudio2
+
+# download Port Audio
+wget http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
+
+# unzip
+tar -zxvf pa_stable_v190600_20161030.tgz
+
+cd portaudio
+
+# compile Port Audio
+./configure && make
+
+# install Port Audio
+sudo make install

@@ -3,7 +3,7 @@
     COSC 2325
     Spring 2018
     Section 001
-    Karina
+    Hernandez
 
     Assignment 3
     4)
