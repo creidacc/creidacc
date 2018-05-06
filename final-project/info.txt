@@ -1,0 +1,44 @@
+sudo apt-get install sox
+
+arecord /home/pi/Desktop/a.wav -D sysdefault:CARD=1
+
+
+// check if wiringPi is installed
+gpio -v
+
+// Check if arm cross compiler tools are installed
+arm-linux-gnueabihf-g++ -v
+arm-linux-gnueabihf-gcc -v
+
+// compile
+gcc -Wall -o blink blink.c -lwiringPi
+
+// run
+sudo ./blink
+
+// compile audio input file
+gcc -o paex_record paex_record.c -lrt -lasound -lpthread -lportaudio -lwiringPi
+
+arm-linux-gnueabihf-gcc -march=armv8-a paex_record.c blinkOnceExt.s -lrt -lasound -lpthread -lportaudio -lwiringPi
+
+arm-linux-gnueabihf-gcc -march=armv8-a paex_record.c armExtTest.s -lrt -lasound -lpthread -lportaudio -lwiringPi
+
+arm-linux-gnueabihf-gcc -march=armv8-a paex_record.c blinkOnceExt.s blinkSetup.s -lrt -lasound -lpthread -lportaudio -lwiringPi
+
+// compile ARM
+as -o blink.o blink.s
+gcc -o blink2 blink.o -lwiringPi
+
+as -o blinkOnce.o blinkOnce.s
+gcc -o blinkOnce blinkOnce.o -lwiringPi
+
+as -o blinkOnceExt.o blinkOnceExt.s
+gcc -o blinkOnceExt blinkOnceExt.o -lwiringPi
+
+as -o blinkOnceVTwo.o blinkOnceVTwo.s
+gcc -o blinkOnceVTwo blinkOnceVTwo.o -lwiringPi
+
+// run ARM
+sudo ./blink2
+
+sudo ./blinkOnce
