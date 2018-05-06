@@ -31,20 +31,20 @@ blinkOnceExt:
 blink:
     /** Set pin ON */
     ldr	r0, =pin    // Load pin into r0
-    ldr	r0, [r0]    // load r0 into r0
+    ldr	r0, [r0]    // Load r0 into r0
     mov	r1, #1  // Set r1 to 1
-    bl 	digitalWrite  // Copy the address of the digitalWrite extern function into lr  
+    bl digitalWrite  // Copy the address of the digitalWrite extern function into lr  
     
     /** Wait */
     ldr	r0, =delayMs // Load the delay in ms into r0
     ldr	r0, [r0]    // Load r0 into r0
-    bl	delay   // Copy the address of the delay extern function into lr 
+    bl delay   // Copy the address of the delay extern function into lr 
 
     /** Set pin OFF */
     ldr	r0, =pin    // Load pin into r0
-    ldr	r0, [r0]    // load r0 into r0
+    ldr	r0, [r0]    // Load r0 into r0
     mov	r1, #0  // Set r1 to 0
-    bl 	digitalWrite    // Copy the address of the digitalWrite extern function into lr 
+    bl digitalWrite    // Copy the address of the digitalWrite extern function into lr 
     
 /** Return to C */
 done:	

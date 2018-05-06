@@ -38,13 +38,13 @@ setupPinOutputMode:
     ldr	r0, =pin    // Load the pin number into r0
     ldr	r0, [r0]    // Load r0 into r0
     mov	r1, #OUTPUT // Set r1 to OUTPUT
-    bl	pinMode // Copy the address of the pinMode extern function into lr
+    bl pinMode // Copy the address of the pinMode extern function into lr
 
     /** Set pin OFF */
     ldr	r0, =pin    // Load pin into r0
     ldr	r0, [r0]    // load r0 into r0
     mov	r1, #0  // Set r1 to 0
-    bl 	digitalWrite    // Copy the address of the digitalWrite extern function into lr 
+    bl digitalWrite    // Copy the address of the digitalWrite extern function into lr 
     
 /** Return to C */
 done:	
