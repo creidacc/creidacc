@@ -1,14 +1,29 @@
+# ssh into raspbian
 ssh -p 2223 -v pi@127.0.0.1
 
+# alias ll
 nano .profile
 # add line
 alias ll="ls -la"
 
+# copy source files from local to raspbian
 scp -v -P 2223 /Users/creid/Desktop/NWR/school/spring-2018/ACC/COSC-2325/creidacc/final-project/paex_record.c pi@127.0.0.1:/home/pi/cs2325/final-project/paex_record.c
 
+# Instructions for Windows
+
+# download pscp
+https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+# copy files from Windows to raspbian
+pscp -scp -P 2223 -v C:\Users\Mario\Documents\paex_record.c pi@127.0.0.1:/home/pi/paex_record.c
+
+# copy portaudio.h
 cp /home/pi/cs2325/portaudio/include/portaudio.h portaudio.h
 
+# compile paex_record
 gcc -o paex_record paex_record.c -lrt -lasound -lpthread -lportaudio
+
+# execute
 ./paex_record
 
 # install Port Audio dependencies

@@ -40,14 +40,18 @@
   * http://portaudio.com/docs/v19-doxydocs/paex__record_8c.html
   */
 
+/** Define extern ARM function */
+extern int blinkOnceExt();
+extern int blinkSetup();
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "portaudio.h"
 
 /* #define SAMPLE_RATE  (17932) // Test failure to open with this value. */
-#define SAMPLE_RATE (44100)
+#define SAMPLE_RATE (48000)
 #define FRAMES_PER_BUFFER (512)
-#define NUM_SECONDS (5)
+#define NUM_SECONDS (60 * 5)
 #define NUM_CHANNELS (2)
 /* #define DITHER_FLAG     (paDitherOff) */
 #define DITHER_FLAG (0)
@@ -96,7 +100,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
 {
     paTestData *data = (paTestData *)userData;
     const SAMPLE *rptr = (const SAMPLE *)inputBuffer;
-    SAMPLE *wptr = &data->recordedSamples[data->frameIndex * NUM_CHANNELS];
+    SAMPLE *wptr = &data->recordedSamples[data->frameIndex];
     long framesToCalc;
     long i;
     int finished;
@@ -106,6 +110,18 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
     (void)timeInfo;
     (void)statusFlags;
     (void)userData;
+
+    // Measure wptr, if threshold is met, then blink
+    float THRESHOLD = 0.1;
+
+    // If wptr is negative, then take switch the sign
+    float absRptrValue = *rptr < 0 ? -*rptr : *rptr;
+
+    if (absRptrValue > THRESHOLD)
+    {
+        // printf("Record callback absRptrValue: %f\n", absRptrValue);
+        blinkOnceExt();
+    }
 
     if (framesLeft < framesPerBuffer)
     {
@@ -123,8 +139,6 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
         for (i = 0; i < framesToCalc; i++)
         {
             *wptr++ = SAMPLE_SILENCE; /* left */
-            if (NUM_CHANNELS == 2)
-                *wptr++ = SAMPLE_SILENCE; /* right */
         }
     }
     else
@@ -132,8 +146,6 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
         for (i = 0; i < framesToCalc; i++)
         {
             *wptr++ = *rptr++; /* left */
-            if (NUM_CHANNELS == 2)
-                *wptr++ = *rptr++; /* right */
         }
     }
     data->frameIndex += framesToCalc;
@@ -191,6 +203,21 @@ static int playCallback(const void *inputBuffer, void *outputBuffer,
         data->frameIndex += framesPerBuffer;
         finished = paContinue;
     }
+
+    // // debug log
+    // float THRESHOLD = 0.1;
+
+    // // Measure wptr, if threshold is met, then blink
+
+    // // If wptr is negative, then take switch the sign
+    // float absRptrValue = *rptr < 0 ? -*rptr : *rptr;
+
+    // if (absRptrValue > THRESHOLD)
+    // {
+    //     // printf("Play callback absRptrValue: %f\n", absRptrValue);
+    //     blinkOnceExt();
+    // }
+
     return finished;
 }
 
@@ -236,10 +263,15 @@ int main(void)
         fprintf(stderr, "Error: No default input device.\n");
         goto done;
     }
-    inputParameters.channelCount = 2; /* stereo input */
+    // Note: channel count is 1
+    inputParameters.channelCount = 1; /* stereo input */
     inputParameters.sampleFormat = PA_SAMPLE_TYPE;
     inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
+
+    /** Init blink LED */
+    printf("(From C) blinkSetup();\n");
+    blinkSetup();
 
     /* Record some audio. -------------------------------------------- */
     err = Pa_OpenStream(
@@ -292,6 +324,9 @@ int main(void)
 
     printf("sample max amplitude = " PRINTF_S_FORMAT "\n", max);
     printf("sample average = %lf\n", average);
+
+    /** EXIT */
+    goto done;
 
     /* Write recorded data to a file. */
 #if WRITE_TO_FILE

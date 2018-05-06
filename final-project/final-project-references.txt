@@ -1,1 +1,11 @@
 final-project-references
+
+# pass parameters to armv8 from c
+https://community.arm.com/processors/b/blog/posts/function-parameters-on-32-bit-arm
+
+# blinking LEDs tutorial in armv8 assembler
+http://www.science.smith.edu/dftwiki/index.php/Tutorial:_Assembly_Language_with_the_Raspberry_Pi
+
+https://web.stanford.edu/class/cs140e/assignments/0-blinky/#phase-1-baking-pi
+
+https://www.raspberrypi.org/forums/viewtopic.php?t=48770
